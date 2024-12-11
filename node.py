@@ -1,10 +1,8 @@
-import requests
 import base64
-import json
 
- 
+import requests
 
-invoke_url = "http:// localhost:8003/v1/infer"
+invoke_url = "http://localhost:8003/v1/infer"
 
  
 
