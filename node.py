@@ -1,53 +1,15 @@
 import base64
-
+from PIL import Image
+from io import BytesIO
 import requests
+import numpy as np
+import torch
 
+# TODO: where does this port come from? Should it be an input or can we use some API to get it?
 invoke_url = "http://localhost:8003/v1/infer"
 
- 
 
-# payload = {
-#     "text_prompts": [
-#         {
-#             "text": "realistic futuristic city-downtown with short buildings, sunset",
-#             "weight": 1
-#         },
-#         {
-#             "text":  "" ,
-#             "weight": -1
-#         }
-#     ],
-#     "cfg_scale": 5,
-#     "sampler": "K_DPM_2_ANCESTRAL",
-#     "seed": 0,
-#     "steps": 25
-# }
-
-# # Size is fixed for now
-# payload_two = {  "cfg_scale": 5,  "clip_guidance_preset": "NONE",  
-#  "disable_safety_checker": 'false',  # Remain false for now. NIM_ALLOW_UNCHECKED_GENERATION=true
-#  "height": 1024,  
-#  "sampler": "K_DPM_2_ANCESTRAL",  
-#  "samples": 1,  "seed": 0,  "steps": 25,  
-#  "style_preset": "none",  
-#  "text_prompts": [    {      
-#      "text": "A photo of a Shiba Inu dog with a backpack riding a bike",      "weight": 1    
-#      }  ],  
-#      "use_refiner": 'false',  
-#      "width": 1024
-# } 
-
-# response = requests.post(invoke_url, json=payload)
-
-# response.raise_for_status()
-
-# data = response.json()
-
-# img_base64 = data['artifacts'][0]["base64"]
-
-# img_bytes = base64.b64decode(img_base64)
-
-class SDXLNIMNode:
+class NIMSDXLNode:
     def __init__(self):
         pass
 
@@ -55,30 +17,50 @@ class SDXLNIMNode:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "text": ("STRING", {
+                "width": (["768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"], {
+                    "default": "1024",
+                    "tooltip": "Width of the image to generate, in pixels."
+                }),
+                "height": (["768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"], {
+                    "default": "1024",
+                    "tooltip": "Height of the image to generate, in pixels."
+                }),
+                "positive": ("STRING", {
                     "multiline": True,
-                    "default": "realistic futuristic city-downtown with short buildings, sunset"
+                    "default": "beautiful scenery nature glass bottle landscape, purple galaxy bottle",
+                    "tooltip": "The attributes you want to include in the image."
+                }),
+                "negative": ("STRING", {
+                    "multiline": True,
+                    "default": "text, watermark",
+                    "tooltip": "The attributes you want to exclude from the image."
                 }),
                 "cfg_scale": ("FLOAT", {
                     "default": 5.0,
                     "min": 1.0,
                     "max": 20.0,
                     "step": 0.5,
-                    "display": "slider"
+                    "display": "slider",
+                    "tooltip": "How strictly the diffusion process adheres to the prompt text (higher values keep your image closer to your prompt)"
                 }),
-                "sampler": (["K_DPM_2_ANCESTRAL"],),
+                "sampler": (["DDIM", "K_EULER_ANCESTRAL", "K_DPM_2_ANCESTRAL"], {
+                    "default": "K_DPM_2_ANCESTRAL",
+                    "tooltip": "The sampler to use for generation. Varying diffusion samplers will vary outputs significantly."
+                }),
                 "seed": ("INT", {
                     "default": 0,
                     "min": 0,
                     "max": 0xffffffffffffffff,  # Max 64-bit unsigned int
-                    "display": "number"
+                    "display": "number",
+                    "tooltip": "The seed which governs generation. Use 0 for a random seed"
                 }),
                 "steps": ("INT", {
                     "default": 25,
                     "min": 1,
                     "max": 100,
                     "step": 1,
-                    "display": "slider"
+                    "display": "slider",
+                    "tooltip": "Number of diffusion steps to run"
                 }),
             },
         }
@@ -87,11 +69,17 @@ class SDXLNIMNode:
     FUNCTION = "generate"
     CATEGORY = "image generation"
 
-    def generate(self, text, cfg_scale, sampler, seed, steps):
+    def generate(self, width, height, positive, negative, cfg_scale, sampler, seed, steps):
         payload = {
+            "width": width,
+            "height": height,
             "text_prompts": [
                 {
-                    "text": text,
+                    "text": positive,
+                    "weight": 1
+                },
+                {
+                    "text": negative,
                     "weight": 1
                 }
             ],
@@ -101,23 +89,25 @@ class SDXLNIMNode:
             "steps": steps
         }
 
-        # Your existing API call code here
         response = requests.post(invoke_url, json=payload)
         response.raise_for_status()
         data = response.json()
         img_base64 = data['artifacts'][0]["base64"]
         img_bytes = base64.b64decode(img_base64)
-        
-        # Convert to the expected format for ComfyUI nodes
-        # Note: You'll need to convert img_bytes to the proper tensor format
-        # This is a placeholder - you'll need to implement the actual image conversion
-        return (img_bytes,)
+
+        image = Image.open(BytesIO(img_bytes))
+        image = image.convert("RGB")
+        image = np.array(image).astype(np.float32) / 255.0
+        image = torch.from_numpy(image)[None,]
+
+        return (image,)
+
 
 # Update the mappings
 NODE_CLASS_MAPPINGS = {
-    "SDXLNIMNode": SDXLNIMNode
+    "NIMSDXLNode": NIMSDXLNode
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "SDXLNIMNode": "SDXL NIM Node"
+    "NIMSDXLNode": "NIM SDXL Node"
 }

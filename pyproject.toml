@@ -1,7 +1,7 @@
 [project]
 name = "nimnodes"
 version = "0.1.0"
-description = "Add your description here"
+description = "Provides nodes to utilise NVIDIA NIM, a set of accelerated inference microservices that allow you to run AI models on NVIDIA GPUs anywhere."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["requests>=2.32.3", "ruff>=0.8.2"]
