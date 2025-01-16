@@ -5,9 +5,7 @@ import requests
 import numpy as np
 import torch
 
-# TODO: where does this port come from? Should it be an input or can we use some API to get it?
 invoke_url = "http://localhost:8003/v1/infer"
-
 
 class NIMSDXLNode:
     def __init__(self):
@@ -50,7 +48,7 @@ class NIMSDXLNode:
                 "seed": ("INT", {
                     "default": 0,
                     "min": 0,
-                    "max": 0xffffffffffffffff,  # Max 64-bit unsigned int
+                    "max": 4294967295,
                     "display": "number",
                     "tooltip": "The seed which governs generation. Use 0 for a random seed"
                 }),
@@ -80,7 +78,7 @@ class NIMSDXLNode:
                 },
                 {
                     "text": negative,
-                    "weight": 1
+                    "weight": -1
                 }
             ],
             "cfg_scale": cfg_scale,
@@ -89,16 +87,22 @@ class NIMSDXLNode:
             "steps": steps
         }
 
-        response = requests.post(invoke_url, json=payload)
-        response.raise_for_status()
+        try:
+            response = requests.post(invoke_url, json=payload)
+        except requests.exceptions.ConnectionError:
+            raise ConnectionError("Unable to connect to NIM API. Please ensure that you have started the container via podman.")
+            
         data = response.json()
-        img_base64 = data['artifacts'][0]["base64"]
+        response.raise_for_status()
+        img_base64 = data["artifacts"][0]["base64"]
         img_bytes = base64.b64decode(img_base64)
+
+        print("Result: " + data["artifacts"][0]["finishReason"])
 
         image = Image.open(BytesIO(img_bytes))
         image = image.convert("RGB")
         image = np.array(image).astype(np.float32) / 255.0
-        image = torch.from_numpy(image)[None,]
+        image = torch.from_numpy(image)[None,]  
 
         return (image,)
 
@@ -109,5 +113,5 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "NIMSDXLNode": "NIM SDXL Node"
+    "NIMSDXLNode": "NIM SDXL"
 }
