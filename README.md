@@ -44,5 +44,5 @@ podman run -it --rm \
  ```
  The first time you run this it will download and configure the container, this may take a while.
  
-After the container is running you can then simply add the NIM SDXL node to generate images, download the [example workflow here](example_workflows/workflow.json) or you can drag the image below into ComfyUI to view the embedded workflow:
+After the container is running you can then simply add the NIM SDXL node to generate images, download the [example workflow here](example_workflows/sdxl_nim_workflow.json) or you can drag the image below into ComfyUI to view the embedded workflow:
 ![Example workflow](assets/workflow.png)  
