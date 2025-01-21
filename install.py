@@ -3,7 +3,6 @@ import subprocess
 import requests
 import tempfile
 import shutil
-from tkinter import messagebox
 from tqdm.auto import tqdm
 
 
@@ -41,10 +40,13 @@ def run_installer(installer_path):
 
 
 if os.name == 'nt':
-    if messagebox.askquestion("NIM Installer",
-                              "Do you want to download and run the NVIDIA NIM installer?\n" +
-                              "If you choose not to please ensure you manually setup NVIDIA NIM before attempting to use the node.") == "yes":
-        url = "http://127.0.0.1:8080/NIMSetup.exe" # TODO: Find out this URL
+    import ctypes
+    res = ctypes.windll.user32.MessageBoxW(None, "Do you want to automatically download and run the NVIDIA NIM installer?\n\n" +
+                     "If you choose not to please ensure you manually setup NVIDIA NIM before attempting to use the node.",
+                     "NIM Installer", 4)
+    
+    if res == 6:
+        url = "https://storage.googleapis.com/comfy-assets/NimSetup.exe"
 
         # Download to temp directory so files get deleted
         with tempfile.TemporaryDirectory() as tmpdir:
