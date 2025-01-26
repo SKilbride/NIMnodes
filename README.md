@@ -12,13 +12,18 @@ GPU: AD100 or above
 GPU Driver: Version 565.xx or later  
 Virtualization Settings: Enabled in SBIOS - [Instructions to enable virtualization if it is not enabled](https://support.microsoft.com/en-gb/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1)
 
-1. Download the installer from {todo: URL}
-2. Run the installer
-3. Open the Terminal app  
+
+The node can automatically download and run the NVIDIA NIM installer for you when you install the node via ComfyUI Manager.  
+Alternatively you can download and run the the installer from here:  
+https://storage.googleapis.com/comfy-assets/NimSetup.exe
+
+After NIM is installed (via automatic process or manual - note that these steps will be streamlined in future), please perform the following steps:
+
+1. Open the Terminal app  
 ![Search for Terminal in your Start Menu](assets/terminal-startmenu.png)  
-4. Open the NVIDIA-Workbench profile by clicking on the arrow along the top  
+2. Open the NVIDIA-Workbench profile by clicking on the arrow along the top  
 ![Load the NVIDIA-Workbench profile in Terminal](assets/terminal-workbench.png)
-5. Setup NIM directories by running the following commands
+3. Setup NIM directories by running the following commands
 ```
 export LOCAL_NIM_CACHE=~/.cache/nim
 mkdir -p "$LOCAL_NIM_CACHE"
