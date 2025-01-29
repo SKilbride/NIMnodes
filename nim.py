@@ -37,8 +37,17 @@ class NIMManager:
         
         # Set permissions using WSL
         chmod_command = f"wsl -d NVIDIA-Workbench -- chmod 777 -R {cache_path}"
-        result = subprocess.run(chmod_command, shell=True, check=True)
+        result = subprocess.run(chmod_command, shell=True, capture_output=True)
+
+        if result.returncode != 0:
+            error_msg = (
+                f"Failed to set permissions for {cache_path}:\n"
+                f"stdout: {result.stdout.decode('ascii')}\n"
+                f"stderr: {result.stderr.decode('ascii')}"
+            )
+            raise Exception(error_msg)
         
+
         print(f"Directory setup completed for {model_name}")
         return
     
