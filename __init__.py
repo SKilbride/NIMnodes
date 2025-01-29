@@ -1,9 +1,12 @@
 import base64
-from PIL import Image
 from io import BytesIO
-import requests
+
 import numpy as np
+import requests
 import torch
+from PIL import Image
+
+import ngc
 
 invoke_url = "http://localhost:8003/v1/infer"
 
@@ -15,7 +18,7 @@ class NIMSDXLNode:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "width": (["768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"], {
+                "width": (["768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"], {  # noqa: E501
                     "default": "1024",
                     "tooltip": "Width of the image to generate, in pixels."
                 }),
@@ -106,12 +109,30 @@ class NIMSDXLNode:
 
         return (image,)
 
+class FetchNGCApiKey:
+    def __init__(self):
+        pass
+    
+    @classmethod
+    def INPUT_TYPES(s):
+        return {"required": {}} 
+    
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("api_key",)
+    FUNCTION = "fetch_key"
+    CATEGORY = "NGC"
+    
+    def fetch_key(self):
+        api_key =ngc.get_ngc_key()
+        return (api_key,)
 
 # Update the mappings
 NODE_CLASS_MAPPINGS = {
-    "NIMSDXLNode": NIMSDXLNode
+    "NIMSDXLNode": NIMSDXLNode,
+    "FetchNGCApiKey": FetchNGCApiKey
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "NIMSDXLNode": "NIM SDXL"
+    "NIMSDXLNode": "NIM SDXL",
+    "FetchNGCApiKey": "NGC API Key"
 }
