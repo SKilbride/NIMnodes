@@ -1,8 +1,8 @@
 import os
+import socket
 import subprocess
 from enum import Enum
 from pathlib import Path
-import socket
 
 
 class ModelType(Enum):
@@ -31,20 +31,16 @@ class NIMManager:
         
     def setup_directories(self, model_name: str) -> None:
         """Create necessary directories for NIM cache"""
-        try:
-            home = os.path.expanduser("~")
-            cache_path = Path(f"{home}/nimcache/{model_name}/latest/.cache")
-            cache_path.parent.mkdir(parents=True, exist_ok=True)
-            
-            # Set permissions
-            chmod_command = f"chmod 777 -R {cache_path}"
-            result = subprocess.run(chmod_command, shell=True, check=True)
-            
-            print(f"Directory setup completed for {model_name}")
-            return
-            
-        except Exception as e:
-            print(f"Failed to setup directories for NIMs: {str(e)}")
+        home = os.path.expanduser("~")
+        cache_path = Path(f"{home}/nimcache/{model_name}/latest/.cache")
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Set permissions using WSL
+        chmod_command = f"wsl -d NVIDIA-Workbench -- chmod 777 -R {cache_path}"
+        result = subprocess.run(chmod_command, shell=True, check=True)
+        
+        print(f"Directory setup completed for {model_name}")
+        return
     
     def pull_nim_image(self, nim_id: str, registry_path: str) -> None:
         """Pull NIM image from the registry"""
