@@ -74,7 +74,7 @@ class NIMSDXLNode:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "generate"
-    CATEGORY = "image generation"
+    CATEGORY = "nvidia/NIMs"
 
     def generate(self, width, height, positive, negative, cfg_scale, sampler, seed, steps, port):
         invoke_url = f"http://localhost:{port}/v1/infer"
@@ -127,7 +127,7 @@ class FetchNGCApiKey:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("api_key",)
     FUNCTION = "fetch_key"
-    CATEGORY = "NGC"
+    CATEGORY = "nvidia/NGC"
     
     def fetch_key(self):
         api_key = get_ngc_key()
@@ -158,8 +158,10 @@ class LoadNimNode:
             }
         }
     
-    RETURN_TYPES = ("STRING",)  # Returns success/failure message
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("port",)
     FUNCTION = "load_nim"
+    CATEGORY = "nvidia/NIMs"
     
     def load_nim(self, model_type: str, api_key: str, port: int):
         manager.deploy_nim(
