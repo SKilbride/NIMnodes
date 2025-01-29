@@ -7,10 +7,10 @@ import torch
 from PIL import Image
 
 from .ngc import get_ngc_key
-from .nim import ModelType
+from .nim import ModelType, NIMManager
 
-invoke_url = "http://localhost:8003/v1/infer"
 
+manager = NIMManager()
 class NIMSDXLNode:
     def __init__(self):
         pass
@@ -64,6 +64,11 @@ class NIMSDXLNode:
                     "display": "slider",
                     "tooltip": "Number of diffusion steps to run"
                 }),
+                "port": ("INT", {
+                    "min": 1,
+                    "max": 65535,
+                    "tooltip": "Port number where NIM is running"
+                })
             },
         }
 
@@ -71,7 +76,8 @@ class NIMSDXLNode:
     FUNCTION = "generate"
     CATEGORY = "image generation"
 
-    def generate(self, width, height, positive, negative, cfg_scale, sampler, seed, steps):
+    def generate(self, width, height, positive, negative, cfg_scale, sampler, seed, steps, port):
+        invoke_url = f"http://localhost:{port}/v1/infer"
         payload = {
             "width": width,
             "height": height,
@@ -155,13 +161,13 @@ class LoadNimNode:
     RETURN_TYPES = ("STRING",)  # Returns success/failure message
     FUNCTION = "load_nim"
     
-    def load_nim(self, api_key, port):
-        global invoke_url
-        invoke_url = f"http://localhost:{port}/v1/infer"
-        
-        # Here you could add logic to validate the API key and connection
-        # For now, we'll just return a success message
-        return (f"NIM configured on port {port}",)
+    def load_nim(self, model_type: str, api_key: str, port: int):
+        manager.deploy_nim(
+            model_name=ModelType[model_type],
+            port=port,
+            api_key=api_key
+        )        
+        return (port,)
 
 # Update the mappings
 NODE_CLASS_MAPPINGS = {
