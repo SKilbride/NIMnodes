@@ -1,6 +1,5 @@
 import base64
 from io import BytesIO
-from nim import ModelType
 
 import numpy as np
 import requests
@@ -8,6 +7,7 @@ import torch
 from PIL import Image
 
 import ngc
+import nim
 
 invoke_url = "http://localhost:8003/v1/infer"
 
@@ -135,8 +135,8 @@ class LoadNimNode:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_type": ([e.value for e in ModelType], {
-                    "default": ModelType.SDXL.value,
+                "model_type": ([e.value for e in nim.ModelType], {
+                    "default": nim.ModelType.SDXL.value,
                     "tooltip": "The type of NIM model to load"
                 }),
                 "api_key": ("STRING", {
