@@ -1,5 +1,6 @@
 import base64
 from io import BytesIO
+from nim import ModelType
 
 import numpy as np
 import requests
@@ -126,13 +127,51 @@ class FetchNGCApiKey:
         api_key =ngc.get_ngc_key()
         return (api_key,)
 
+class LoadNimNode:
+    def __init__(self):
+        pass
+    
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "model_type": ([e.value for e in ModelType], {
+                    "default": ModelType.SDXL.value,
+                    "tooltip": "The type of NIM model to load"
+                }),
+                "api_key": ("STRING", {
+                    "default": "",
+                    "tooltip": "NGC API Key for authentication"
+                }),
+                "port": ("INT", {
+                    "default": 8003,
+                    "min": 1,
+                    "max": 65535,
+                    "tooltip": "Port number where NIM is running"
+                })
+            }
+        }
+    
+    RETURN_TYPES = ("STRING",)  # Returns success/failure message
+    FUNCTION = "load_nim"
+    
+    def load_nim(self, api_key, port):
+        global invoke_url
+        invoke_url = f"http://localhost:{port}/v1/infer"
+        
+        # Here you could add logic to validate the API key and connection
+        # For now, we'll just return a success message
+        return (f"NIM configured on port {port}",)
+
 # Update the mappings
 NODE_CLASS_MAPPINGS = {
     "NIMSDXLNode": NIMSDXLNode,
-    "FetchNGCApiKey": FetchNGCApiKey
+    "FetchNGCApiKey": FetchNGCApiKey,
+    "LoadNimNode": LoadNimNode
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "NIMSDXLNode": "NIM SDXL",
-    "FetchNGCApiKey": "NGC API Key"
+    "FetchNGCApiKey": "NGC API Key",
+    "LoadNimNode": "Load NIM"
 }
