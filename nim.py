@@ -42,8 +42,8 @@ class NIMManager:
         if result.returncode != 0:
             error_msg = (
                 f"Failed to set permissions for {cache_path}:\n"
-                f"stdout: {result.stdout.decode('ascii')}\n"
-                f"stderr: {result.stderr.decode('ascii')}"
+                f"stdout: {result.stdout.decode('utf-8')}\n"
+                f"stderr: {result.stderr.decode('utf-8')}"
             )
             raise Exception(error_msg)
         
