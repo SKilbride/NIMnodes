@@ -14,8 +14,7 @@ Virtualization Settings: Enabled in SBIOS - [Instructions to enable virtualizati
 
 
 The node can automatically download and run the NVIDIA NIM installer for you when you install the node via ComfyUI Manager.  
-Alternatively you can download and run the the installer from here:  
-https://storage.googleapis.com/comfy-assets/NimSetup.exe
+Alternatively you can download and run the the installer from [here](https://storage.googleapis.com/comfy-assets/NIMSetup.exe).
 
 After NIM is installed (via automatic process or manual - note that these steps will be streamlined in future), please perform the following steps:
 
