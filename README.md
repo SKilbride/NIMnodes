@@ -1,63 +1,81 @@
-# NVIDIA NIM SDXL 
+# NVIDIA NIM FLUX
 
-### What is Stable Diffusion XL NIM?
+### What is the FLUX NIM?
 
-The Stable Diffusion XL NIM is a container that allows you to run Stability.AI’s Stable Diffusion XL model - one of the most popular visual generative AI models in the world - in the most optimal manner. 
+The FLUX NIM is an NVIDIA Microservices container designed to run Black Forest Lab's FLUX models in the most optimal manner. This NIM provides support for the following models from Black Forest Lab's:  Flux.1 dev, Flux.1-Depth-dev, and Flux.1-Canny-dev. 
 
-## Getting Started with Stable Diffusion XL NIM with ComfyUI
+## Getting Started with the FLUX NIM in ComfyUI
 
 Before installing, ensure your system meets the following requirements:  
 Operating System: Windows 11 (22H1 or later)  
-GPU: AD100 or above  
-GPU Driver: Version 565.xx or later  
+GPU: RTX 5090, RTX 5080, RTX 4090, RTX 4090 Laptop, RTX 4080, RTX 6000 Ada 
+GPU Driver: Version 572.83 or later  
 Virtualization Settings: Enabled in SBIOS - [Instructions to enable virtualization if it is not enabled](https://support.microsoft.com/en-gb/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1)
 
 
 The node can automatically detect if you have already set up NVIDIA NIM, if not, it will navigate to the NIMsetup.exe download page where you can download and install NIMs.  
-Alternatively you can download and run the the installer from [here](https://storage.googleapis.com/comfy-assets/NIMSetup.exe).
+However it is recommended to installer from [here](https://assets.ngc.nvidia.com/products/api-catalog/rtx/NIM_Prerequisites_Installer_03052025.zip) unzip the downloaded file and run NIMSetup.exe. 
 
-After NIM is installed, please perform the following steps to start NIMs in Comfy UI:
+After the NIM setup has completed, please perform the following steps to start NIMs in Comfy UI:
 
-1. Install ComfyUI following [this](https://github.com/comfyanonymous/ComfyUI?tab=readme-ov-file#installing) and prepare running enviorment for ComfyUI
+1. Install ComfyUI following [this](https://github.com/comfyanonymous/ComfyUI?tab=readme-ov-file#installing) note the special instructions for installing for NVIDIA 50-Series (Blackwell) and prepare the running enviorment for ComfyUI
 2. Open ComfyUI folder, clone this repo and put it under `...\ComfyUI\custom_nodes\`
 3. Go to `...\ComfyUI\custom_nodes\comfyui_nim\`and install dependency with `pip install -r requirements.txt`
-4. (*when using staging NIMs*) Customize [API key](https://gitlab-master.nvidia.com/ruixiangw/comfyui_nim/-/blob/main/nim.py?ref_type=heads#L43) to your personal API key to access staging NIMs 
-5. Run ComfyUI APP with `python main.py` under `...\ComfyUI\` 
-6. Open ComfyUI in browser, and import workflow `...\ComfyUI\custom_nodes\comfyui_nim\example_workflows\sdxl_nim_workflow.json`
-7. Run the workflow. *The first time you run this it will download and configure the container, this may take a while.*
-![sdxl nims workflow](assets/sdxl_nim_workflow.png) 
-8. When shutdown ComfyUI APP, the running NIMs will also be stopped  
+4. If using the windows standalone ComfyUI install use this command `..\..\..\python_embeded\python -m pip install -r requirements.txt`
+5. A HuggingFace API token is required to access the Flux models. For information on how to create an access token see [here](https://huggingface.co/docs/hub/en/security-tokens)
+6. To avoid having to input your token into the NIM everytime you can set the HF_TOKEN environment variable.
+7. Open a command prompt and type `setx HF_TOKEN <hftoken_info>` where <hftoken_info> represents your actual Hugging Face Token string.
+8. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
+9. For ComfyUI standalone, run ComfyUI using the run_nvidia_gpu.bat file. 
+10. Open ComfyUI in browser, and import workflow `...\ComfyUI\custom_nodes\comfyui_nim\example_workflows\FLUX_Dev_NIM_Workflow.json`
+11. Run the workflow. *The first time you run this it will download and configure the container, this may take a while.*
+12. ![flux_dev nim workflow](assets/Flux.1_dev_NIM.png)
+13. ![flux_depth_dev nim workflow](assets/Flux.1_depth_dev_NIM.png)
+14. ![flux_canny_dev nim workflow](assets/Flux.1_canny_dev_NIM.png) 
+15. When ComfyUI is shutdown, the running NIMs will also be stopped  
 
 ### Install node in ComfyUI
 The recommended way to install these nodes is to use the [ComfyUI Manager](https://github.com/ltdrdata/ComfyUI-Manager) to easily install them to your ComfyUI instance.  
 You can also manually install them by git cloning the repo to your ComfyUI/custom_nodes folder.
 
 
-### Outdated Getting Started
-1. Open the Terminal app  
-![Search for Terminal in your Start Menu](assets/terminal-startmenu.png)  
-2. Open the NVIDIA-Workbench profile by clicking on the arrow along the top  
-![Load the NVIDIA-Workbench profile in Terminal](assets/terminal-workbench.png)
-3. Setup NIM directories by running the following commands
-    ```
-    export LOCAL_NIM_CACHE=~/.cache/nim
-    mkdir -p "$LOCAL_NIM_CACHE"
-    chmod -R a+w "$LOCAL_NIM_CACHE"
-    ```
+### Node Details
+![Install NIM Node](assets/Install_NIM_Node.png)
+The **Install NIM Node** checks to verify that the NIMs have been setup on the system, if the NIM setup has been completed this node returns *TRUE*. If NIM setup has not be completed, this node returns *FALSE* and will download the NIMSetup package.
+This node must be connected to the **is_nim_installed** input on the Load NIM Node
 
-4. You will need to start the container each time you want to use the node.  
-To do this, navigate to the NVIDIA-Workbench profile in Terminal (see getting started section) and run the following command:
-    ```
-    podman run -it --rm \
-    --device=nvidia.com/gpu=all \
-    --shm-size=16GB \
-    -e NGC_API_KEY=$NGC_API_KEY \
-    -v "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
-    -u $(id -u) \
-    -p 8000:8000 \
-    {todo: URL}
-    ```
- The first time you run this it will download and configure the container, this may take a while.
- 
-5. After the container is running you can then simply add the NIM SDXL node to generate images, download the [example workflow here](example_workflows/sdxl_nim_workflow.json) or you can drag the image below into ComfyUI to view the embedded workflow:
-![Example workflow](assets/workflow.png)  
+![Load NIM Node](assets/Load_NIM_Node.png)
+The **Load NIM Node** is responsible for loading the requested NIM. 
+Inputs:
+*model_type*: [Flux Dev, Flux Canny, or Flux Depth] Determines which Flux model is loaded.
+*operation*: [Start, Stop]. **Start** is used to load and start the requested model in the NIM.  **Stop** will stop the NIM and unload loaded models, when switching between NIM models, any running models should be stopped before starting a new model.
+*offloading_policy*: [None, System RAM, Disk]. The offloading policy determine how models should be offloaded from VRAM. 
+**None** indicates that models will not be offloaded, if the models exceed the available VRAM then generation will fail, it is recommended to only use **None** on GPUs with 24GB or more VRAM. If supported by the GPU, **None** offers the best performance.
+**System RAM** will move models to System RAM. The **System RAM** option provides a good mix of performance and flexibility, but may not be the best option for systems with limited system RAM.
+**Disk** will move offloaded models to disk. Offloading to disk impacts the overall performance but provides a viable option for GPUs with less than 24GB on systems with limited system RAM.
+*hf_token*: This field is used to provide the users Hugging Face API token, it is recommended to store the Hugging Face API token to the HF_TOKEN environment variable and use the Use **HF_TOKEN EnVar Node** to provide this input. *This field is required and must provide a valid HF API Token*.
+*is_nim_installed*: This input takes the output from the **Install NIM Node** is_nim_install output.
+Outputs:
+*is_nim_started*: This output sends information on whether the NIM has been started and is ready to recieved input. If the NIM has started and is ready it will return **True**. If the NIM fails to start it will return **False**.
+
+![FLUX NIM Node](assets/FLUX_NIM_Node.png)
+The **NIM FLUX NODE** allows the user to configure the options used by the FLUX NIM to generate images.
+Inputs:
+*image*: When the FLUX Canny or FLUX Depth models are used, an image needs to be used to guide the image output. The Image input takes regular images as input and will be converted to *Depth* or *Canny* images within the NIM. 
+*is_nim_started*: This input takes the output from the **is_nim_started** output from the *Load NIM Node*.
+*width*: The image width. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+*height*: The image height. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+*prompt*: The text description of the desired image output
+*cfg_scale*: The cfg scale determines how closely the output adheres to the prompt input, higher values will cause more adherence. 
+*seed*: The seed used for noise generation.
+*control after generate*: [fixed, increment, decrement, randomize]
+*steps*: The number of generation steps used per image.
+Output:
+*image*: The generated image, this output should be connected to a Preview Image Node or Save Image Node.
+
+![HF_TOKEN Node](assets/HF_TOKEN_Node.png)
+The **Use HF_TOKEN Node** willread the HF_TOKEN environment variable and pass it as an output which can be connected to the **hf_token** input on the *Load NIM Node*
+Inputs:
+NONE
+Output:
+*hf_token*: Outputs the contents of the HF_TOKEN environment variable, will generate a failure if the environment variable does not exist.
