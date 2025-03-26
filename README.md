@@ -72,7 +72,7 @@ Outputs:
 
 *is_nim_started*: This output sends information on whether the NIM has been started and is ready to recieved input. If the NIM has started and is ready it will return **True**. If the NIM fails to start it will return **False**.
 
-![FLUX NIM Node](assets/FLUX_NIM_Node.png)
+![FLUX NIM Node](assets/Flux_NIM_Node.png)
 
 The **NIM FLUX NODE** allows the user to configure the options used by the FLUX NIM to generate images.
 
