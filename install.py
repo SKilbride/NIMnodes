@@ -36,22 +36,10 @@ def run_installer(installer_path):
     ]
 
     print("Waiting for completion...")
-    subprocess.run(powershell_command, check=True)
+    try: 
+        result = subprocess.run(powershell_command, check=True)
+        if result.returncode == 0:
+            print("Install NIMSetup successfully!")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to install with error code {e.returncode}")
 
-
-if os.name == 'nt':
-    import ctypes
-    res = ctypes.windll.user32.MessageBoxW(None, "Do you want to automatically download and run the NVIDIA NIM installer?\n\n" +
-                     "If you choose not to please ensure you manually setup NVIDIA NIM before attempting to use the node.",
-                     "NIM Installer", 4)
-    
-    if res == 6:
-        url = "https://storage.googleapis.com/comfy-assets/NimSetup.exe"
-
-        # Download to temp directory so files get deleted
-        with tempfile.TemporaryDirectory() as tmpdir:
-            installer_path = download_installer(url, tmpdir)
-            run_installer(installer_path)
-
-else:
-    print("NIM node setup is only supported for Windows")

@@ -164,3 +164,11 @@ def get_ngc_key():
         return key
     else:
         raise Exception("Error getting NGC API key. Please follow the instructions in the README to set up your NGC API key.")  # noqa: E501
+
+
+if __name__ == "__main__":
+    # deviceInfoNvml = get_device_info_nvml()
+    # deviceInfoSmi = get_device_info_smi()
+    # assert deviceInfoNvml[0]["pdi"] == deviceInfoSmi[0]["pdi"]
+    # key = get_ngc_key_from_device_info(deviceInfoSmi)
+    get_ngc_key()
