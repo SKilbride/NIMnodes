@@ -1,4 +1,4 @@
-# NVIDIA NIM FLUX
+# NVIDIA FLUX NIM
 
 ### What is the FLUX NIM?
 
