@@ -1,4 +1,4 @@
-# NVIDIA NIM FLUX
+# NVIDIA FLUX NIM
 
 ### What is the FLUX NIM?
 
@@ -41,41 +41,73 @@ You can also manually install them by git cloning the repo to your ComfyUI/custo
 
 ### Node Details
 ![Install NIM Node](assets/Install_NIM_Node.png)
+
 The **Install NIM Node** checks to verify that the NIMs have been setup on the system, if the NIM setup has been completed this node returns *TRUE*. If NIM setup has not be completed, this node returns *FALSE* and will download the NIMSetup package.
+
 This node must be connected to the **is_nim_installed** input on the Load NIM Node
 
 ![Load NIM Node](assets/Load_NIM_Node.png)
+
 The **Load NIM Node** is responsible for loading the requested NIM. 
+
 Inputs:
+
 *model_type*: [Flux Dev, Flux Canny, or Flux Depth] Determines which Flux model is loaded.
+
 *operation*: [Start, Stop]. **Start** is used to load and start the requested model in the NIM.  **Stop** will stop the NIM and unload loaded models, when switching between NIM models, any running models should be stopped before starting a new model.
-*offloading_policy*: [None, System RAM, Disk]. The offloading policy determine how models should be offloaded from VRAM. 
+
+*offloading_policy*: [None, System RAM, Disk]. The offloading policy determine how models should be offloaded from VRAM.
+
 **None** indicates that models will not be offloaded, if the models exceed the available VRAM then generation will fail, it is recommended to only use **None** on GPUs with 24GB or more VRAM. If supported by the GPU, **None** offers the best performance.
+
 **System RAM** will move models to System RAM. The **System RAM** option provides a good mix of performance and flexibility, but may not be the best option for systems with limited system RAM.
+
 **Disk** will move offloaded models to disk. Offloading to disk impacts the overall performance but provides a viable option for GPUs with less than 24GB on systems with limited system RAM.
+
 *hf_token*: This field is used to provide the users Hugging Face API token, it is recommended to store the Hugging Face API token to the HF_TOKEN environment variable and use the Use **HF_TOKEN EnVar Node** to provide this input. *This field is required and must provide a valid HF API Token*.
+
 *is_nim_installed*: This input takes the output from the **Install NIM Node** is_nim_install output.
+
 Outputs:
+
 *is_nim_started*: This output sends information on whether the NIM has been started and is ready to recieved input. If the NIM has started and is ready it will return **True**. If the NIM fails to start it will return **False**.
 
-![FLUX NIM Node](assets/FLUX_NIM_Node.png)
+![FLUX NIM Node](assets/Flux_NIM_Node.png)
+
 The **NIM FLUX NODE** allows the user to configure the options used by the FLUX NIM to generate images.
+
 Inputs:
+
 *image*: When the FLUX Canny or FLUX Depth models are used, an image needs to be used to guide the image output. The Image input takes regular images as input and will be converted to *Depth* or *Canny* images within the NIM. 
+
 *is_nim_started*: This input takes the output from the **is_nim_started** output from the *Load NIM Node*.
+
 *width*: The image width. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+
 *height*: The image height. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+
 *prompt*: The text description of the desired image output
+
 *cfg_scale*: The cfg scale determines how closely the output adheres to the prompt input, higher values will cause more adherence. 
+
 *seed*: The seed used for noise generation.
+
 *control after generate*: [fixed, increment, decrement, randomize]
+
 *steps*: The number of generation steps used per image.
+
 Output:
+
 *image*: The generated image, this output should be connected to a Preview Image Node or Save Image Node.
 
 ![HF_TOKEN Node](assets/HF_TOKEN_Node.png)
+
 The **Use HF_TOKEN Node** willread the HF_TOKEN environment variable and pass it as an output which can be connected to the **hf_token** input on the *Load NIM Node*
+
 Inputs:
+
 NONE
+
 Output:
+
 *hf_token*: Outputs the contents of the HF_TOKEN environment variable, will generate a failure if the environment variable does not exist.
