@@ -41,10 +41,12 @@ You can also manually install them by git cloning the repo to your ComfyUI/custo
 
 ### Node Details
 ![Install NIM Node](assets/Install_NIM_Node.png)
+
 The **Install NIM Node** checks to verify that the NIMs have been setup on the system, if the NIM setup has been completed this node returns *TRUE*. If NIM setup has not be completed, this node returns *FALSE* and will download the NIMSetup package.
 This node must be connected to the **is_nim_installed** input on the Load NIM Node
 
 ![Load NIM Node](assets/Load_NIM_Node.png)
+
 The **Load NIM Node** is responsible for loading the requested NIM. 
 Inputs:
 *model_type*: [Flux Dev, Flux Canny, or Flux Depth] Determines which Flux model is loaded.
@@ -59,6 +61,7 @@ Outputs:
 *is_nim_started*: This output sends information on whether the NIM has been started and is ready to recieved input. If the NIM has started and is ready it will return **True**. If the NIM fails to start it will return **False**.
 
 ![FLUX NIM Node](assets/FLUX_NIM_Node.png)
+
 The **NIM FLUX NODE** allows the user to configure the options used by the FLUX NIM to generate images.
 Inputs:
 *image*: When the FLUX Canny or FLUX Depth models are used, an image needs to be used to guide the image output. The Image input takes regular images as input and will be converted to *Depth* or *Canny* images within the NIM. 
@@ -74,6 +77,7 @@ Output:
 *image*: The generated image, this output should be connected to a Preview Image Node or Save Image Node.
 
 ![HF_TOKEN Node](assets/HF_TOKEN_Node.png)
+
 The **Use HF_TOKEN Node** willread the HF_TOKEN environment variable and pass it as an output which can be connected to the **hf_token** input on the *Load NIM Node*
 Inputs:
 NONE
