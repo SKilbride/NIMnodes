@@ -38,9 +38,9 @@ class NIMManager:
 
     # Registry paths for different model types
     MODEL_REGISTRY: dict[ModelType, str] = {
-        ModelType.FLUX_DEV: "nvcr.io/nvstaging/nim/flux.1-dev:1.0.0-rc.5.25953947",
-        ModelType.FLUX_CANNY: "nvcr.io/nvstaging/nim/flux.1-dev:1.0.0-rc.5.25953947",
-        ModelType.FLUX_DEPTH: "nvcr.io/nvstaging/nim/flux.1-dev:1.0.0-rc.5.25953947",
+        ModelType.FLUX_DEV: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
+        ModelType.FLUX_CANNY: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
+        ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
     }
     PORT = 5000
 
