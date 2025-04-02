@@ -1,39 +1,9 @@
 {
   "id": "b4e84106-0201-477e-aad3-76c583ad2881",
   "revision": 0,
-  "last_node_id": 9,
+  "last_node_id": 10,
   "last_link_id": 12,
   "nodes": [
-    {
-      "id": 1,
-      "type": "SaveImage",
-      "pos": [
-        2027.58447265625,
-        359.71392822265625
-      ],
-      "size": [
-        315,
-        270
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 11
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.27"
-      },
-      "widgets_values": [
-        "ComfyUI"
-      ]
-    },
     {
       "id": 4,
       "type": "InstallNIMNode",
@@ -67,11 +37,65 @@
       "widgets_values": []
     },
     {
+      "id": 6,
+      "type": "LoadNIMNode",
+      "pos": [
+        1060.9786376953125,
+        68.09461212158203
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "is_nim_installed",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "is_nim_installed"
+          },
+          "link": 7
+        },
+        {
+          "name": "hf_token",
+          "type": "STRING",
+          "widget": {
+            "name": "hf_token"
+          },
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "LoadNIMNode"
+      },
+      "widgets_values": [
+        "FLUX_DEV",
+        "Start",
+        "System RAM",
+        "Input HF Token",
+        false
+      ]
+    },
+    {
       "id": 8,
       "type": "Get_HFToken",
       "pos": [
-        568.911865234375,
-        306.4279479980469
+        638.2452392578125,
+        131.76126098632812
       ],
       "size": [
         226.79998779296875,
@@ -101,15 +125,15 @@
       "id": 7,
       "type": "NIMFLUXNode",
       "pos": [
-        1567.7122802734375,
-        49.02793884277344
+        1412.37890625,
+        53.02793884277344
       ],
       "size": [
         400,
         256
       ],
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -153,58 +177,58 @@
       ]
     },
     {
-      "id": 6,
-      "type": "LoadNIMNode",
+      "id": 1,
+      "type": "SaveImage",
       "pos": [
-        1060.9786376953125,
-        68.09461212158203
+        1871.58447265625,
+        51.71392822265625
       ],
       "size": [
         315,
-        154
+        270
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        966.0783081054688,
+        392.1584777832031
+      ],
+      "size": [
+        377.3333740234375,
+        154.66668701171875
       ],
       "flags": {},
       "order": 2,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_installed",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "is_nim_installed"
-          },
-          "link": 7
-        },
-        {
-          "name": "hf_token",
-          "type": "STRING",
-          "widget": {
-            "name": "hf_token"
-          },
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "links": [
-            9
-          ]
-        }
-      ],
-      "properties": {
-        "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
-        "Node name for S&R": "LoadNIMNode"
-      },
+      "inputs": [],
+      "outputs": [],
+      "title": "LICENSE AGREEMENT",
+      "properties": {},
       "widgets_values": [
-        "FLUX_DEV",
-        "Start",
-        "System RAM",
-        "Input HF Token",
-        false
-      ]
+        "***LICENSE AGREEMENT***\n\nBy clicking Run button, you agree to the terms governing the NIMs you have chosen: [https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md](https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md)"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -245,10 +269,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
+      "scale": 1,
       "offset": [
-        11.888146723650435,
-        139.43874037424487
+        -279.4116436199,
+        277.84152591147154
       ]
     }
   },
