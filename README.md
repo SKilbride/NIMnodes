@@ -25,14 +25,32 @@ After the NIM setup has completed, please perform the following steps to start N
 5. A HuggingFace API token is required to access the Flux models. For information on how to create an access token see [here](https://huggingface.co/docs/hub/en/security-tokens)
 6. To avoid having to input your token into the NIM everytime you can set the HF_TOKEN environment variable.
 7. Open a command prompt and type `setx HF_TOKEN <hftoken_info>` where <hftoken_info> represents your actual Hugging Face Token string.
-8. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
-9. For ComfyUI standalone, run ComfyUI using the run_nvidia_gpu.bat file. 
-10. Open ComfyUI in browser, and import workflow `...\ComfyUI\custom_nodes\comfyui_nim\example_workflows\FLUX_Dev_NIM_Workflow.json`
-11. Run the workflow. *The first time you run this it will download and configure the container, this may take a while.*
-12. ![flux_dev nim workflow](assets/Flux.1_dev_NIM.png)
-13. ![flux_depth_dev nim workflow](assets/Flux.1_depth_dev_NIM.png)
-14. ![flux_canny_dev nim workflow](assets/Flux.1_canny_dev_NIM.png) 
-15. When ComfyUI is shutdown, the running NIMs will also be stopped  
+8. Accept the use agreement for the FLUX models on Hugging Face
+    1. Login into [Hugging Face](https://huggingface.co/login) using the account associated with your access token
+  
+Navigate to: [https://huggingface.co/black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) 
+
+![image](https://github.com/user-attachments/assets/73206800-87cc-4bdf-a4bd-c0dde8730161)
+Accept the license agreement.
+
+Repeat this step for the following FLUX model variants:
+| Model      |URL |
+| ----------- | ----------- |
+| FLUX.1-Canny-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev) |
+| FLUX.1-Depth-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev) |
+| FLUX.1-dev-onnx       | [https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx) |
+| FLUX.1-Canny-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx) |
+| FLUX.1-Depth-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx) |
+
+## Start ComfyUI
+1. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
+2. For ComfyUI standalone, run ComfyUI using the run_nvidia_gpu.bat file. 
+3. Open ComfyUI in browser, and import workflow `...\ComfyUI\custom_nodes\comfyui_nim\example_workflows\FLUX_Dev_NIM_Workflow.json`
+4. Run the workflow. *The first time you run this it will download and configure the container, this may take a while.*
+5. ![flux_dev nim workflow](assets/Flux.1_dev_NIM.png)
+6. ![flux_depth_dev nim workflow](assets/Flux.1_depth_dev_NIM.png)
+7. ![flux_canny_dev nim workflow](assets/Flux.1_canny_dev_NIM.png) 
+8. When ComfyUI is shutdown, the running NIMs will also be stopped  
 
 ### Install node in ComfyUI
 The recommended way to install these nodes is to use the [ComfyUI Manager](https://github.com/ltdrdata/ComfyUI-Manager) to easily install them to your ComfyUI instance.  
