@@ -46,7 +46,7 @@ class NIMManager:
 
     def __init__(self):
         self._nim_server_proc_dict: dict[ModelType, dict] = {}
-        self.api_key = get_ngc_key() 
+        self.api_key = get_ngc_key()
         self.cache_path = self._get_cache_path()
         atexit.register(self.cleanup)
         self.cmd_prefix = ""
@@ -155,7 +155,6 @@ class NIMManager:
                 sys.stdout.flush()
         print("Image has been pulled")
 
-
     def get_running_container_info(self):
         cmd = self.cmd_prefix + f"podman container ls -a --format json"
         result = subprocess.run(cmd, shell=True, capture_output=True)
@@ -168,11 +167,12 @@ class NIMManager:
             if "Names" in container and "Ports" in container:
                 id = container["Id"]
                 image = container["Image"]
-                assert len(container["Names"]) == len(container["Ports"])
                 for i in range(len(container["Names"])):
                     name = container["Names"][i]
-                    port = container["Ports"][i]["host_port"]
-                    containers_data[name] = {"port": port, "id": id, "image": image}
+                    ports = []
+                    for port_info in container["Ports"]:
+                        ports.append(port_info.get("host_port"))
+                    containers_data[name] = {"ports": ports, "id": id, "image": image}
         return containers_data
     
 
