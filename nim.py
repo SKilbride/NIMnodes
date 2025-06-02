@@ -20,12 +20,14 @@ class ModelType(Enum):
     FLUX_DEV = "FLUX_DEV"
     FLUX_CANNY = "FLUX_CANNY"
     FLUX_DEPTH = "FLUX_DEPTH"
+    FLUX_SCHNELL = "FLUX_SCHNELL"
 
 
 class OffloadingPolicy(Enum):
     NONE = "None"
     SYS = "System RAM"
     DISK = "Disk"
+    DEFAULT = "Default"
 
 class NIMManager:
     '''
@@ -38,9 +40,10 @@ class NIMManager:
 
     # Registry paths for different model types
     MODEL_REGISTRY: dict[ModelType, str] = {
-        ModelType.FLUX_DEV: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
-        ModelType.FLUX_CANNY: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
-        ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
+        ModelType.FLUX_DEV: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_CANNY: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_SCHNELL: "nvcr.io/nim/black-forest-labs/flux.1-schnell:1.0.0",
     }
     PORT = 5000
 

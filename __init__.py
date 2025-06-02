@@ -216,7 +216,7 @@ class InstallNIMNode:
                                 "NIM Installer", 1 | 48)
                 if res == 1:
                     import webbrowser
-                    webbrowser.open("https://assets.ngc.nvidia.com/products/api-catalog/rtx/NIM_Prerequisites_Installer_03052025.zip")
+                    webbrowser.open("https://assets.ngc.nvidia.com/products/api-catalog/rtx/NIMSetup.exe")
 
                 raise Exception("Please install NVIDIA NIM first and try again.")
                 
