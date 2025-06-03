@@ -2,7 +2,7 @@
 
 ### What is the FLUX NIM?
 
-The FLUX NIM is an NVIDIA Microservices container designed to run Black Forest Lab's FLUX models in the most optimal manner. This NIM provides support for the following models from Black Forest Lab's:  Flux.1 dev, Flux.1-Depth-dev, and Flux.1-Canny-dev. 
+The FLUX NIM is an NVIDIA Microservices container designed to run Black Forest Lab's FLUX models in the most optimal manner. This NIM provides support for the following models from Black Forest Lab's:  Flux.1 dev, Flux.1-Depth-dev, Flux.1-Canny-dev, and Flux.1-Schnell. 
 
 ## Getting Started with the FLUX NIM in ComfyUI
 
@@ -14,7 +14,7 @@ Virtualization Settings: Enabled in SBIOS - [Instructions to enable virtualizati
 
 
 The node can automatically detect if you have already set up NVIDIA NIM, if not, it will navigate to the NIMsetup.exe download page where you can download and install NIMs.  
-However it is recommended to installer from [here](https://assets.ngc.nvidia.com/products/api-catalog/rtx/NIM_Prerequisites_Installer_03052025.zip) unzip the downloaded file and run NIMSetup.exe. 
+However it is recommended to installer from [here](https://assets.ngc.nvidia.com/products/api-catalog/rtx/NIMSetup.exe) and run NIMSetup.exe. 
 
 After the NIM setup has completed, please perform the following steps to start NIMs in Comfy UI:
 
@@ -38,9 +38,11 @@ Repeat this step for the following FLUX model variants:
 | ----------- | ----------- |
 | FLUX.1-Canny-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev) |
 | FLUX.1-Depth-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev) |
+| FLUX.1-schnell        | [https://huggingface.co/black-forest-labs/FLUX.1-schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell) |
 | FLUX.1-dev-onnx       | [https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx) |
 | FLUX.1-Canny-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx) |
 | FLUX.1-Depth-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx) |
+| FLUX.1-schnell        | [https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx](https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx) |
 
 ## Start ComfyUI
 1. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
@@ -74,13 +76,15 @@ Inputs:
 
 *operation*: [Start, Stop]. **Start** is used to load and start the requested model in the NIM.  **Stop** will stop the NIM and unload loaded models, when switching between NIM models, any running models should be stopped before starting a new model.
 
-*offloading_policy*: [None, System RAM, Disk]. The offloading policy determine how models should be offloaded from VRAM.
+*offloading_policy*: [None, System RAM, Disk, Default]. The offloading policy determine how models should be offloaded from VRAM.
 
 **None** indicates that models will not be offloaded, if the models exceed the available VRAM then generation will fail, it is recommended to only use **None** on GPUs with 24GB or more VRAM. If supported by the GPU, **None** offers the best performance.
 
 **System RAM** will move models to System RAM. The **System RAM** option provides a good mix of performance and flexibility, but may not be the best option for systems with limited system RAM.
 
 **Disk** will move offloaded models to disk. Offloading to disk impacts the overall performance but provides a viable option for GPUs with less than 24GB on systems with limited system RAM.
+
+**Default** will attempt to keep as much of the image generation pipeline in GPU VRAM as possible.
 
 *hf_token*: This field is used to provide the users Hugging Face API token, it is recommended to store the Hugging Face API token to the HF_TOKEN environment variable and use the Use **HF_TOKEN EnVar Node** to provide this input. *This field is required and must provide a valid HF API Token*.
 
