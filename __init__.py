@@ -55,7 +55,7 @@ class NIMFLUXNode:
                 }),
                 "steps": ("INT", {
                     "default": 50,
-                    "min": 5,
+                    "min": 1,
                     "max": 100,
                     "step": 1,
                     "display": "slider",
@@ -79,7 +79,14 @@ class NIMFLUXNode:
         port = manager.get_port(model_name)
         invoke_url = f"http://localhost:{port}/v1/infer"
 
-        mode = model_name.value.split("_")[-1].lower().replace("dev", "base")
+        #mode = model_name.value.split("_")[-1].lower().replace("dev", "base")
+        mode = NIMManager._get_variant(self, model_name)
+
+        if model_name.value.split('_')[-1].lower() == 'schnell':
+            cfg_scale = 0
+            if steps > 4:
+                raise Exception ("Flux Schnell step value must be between 1-4 steps")
+    
         payload = {
             "width": int(width),
             "height": int(height),
@@ -149,7 +156,7 @@ class LoadNIMNode:
                 }),
                 "operation": (["Start", "Stop"],),
                 "offloading_policy": ([e.value for e in OffloadingPolicy], {
-                    "default": OffloadingPolicy.SYS.value,
+                    "default": OffloadingPolicy.DEFAULT.value,
                     "tooltip": "Policy to offload models"
                 }),
                 "hf_token": ("STRING", {

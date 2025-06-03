@@ -192,6 +192,8 @@ class NIMManager:
             return "canny"
         elif model_name.value.endswith("DEPTH"):
             return "depth"
+        elif model_name.value.endswith("SCHNELL"):
+            return "base"
         else:
             return "base"
 
@@ -202,7 +204,8 @@ class NIMManager:
             return
 
         self._setup_directories(model_name)
-        cache_path = self.cache_path.format(model_name=model_name.value)
+        #cache_path = self.cache_path.format(model_name=model_name.value)
+        cache_path = '~/.cache/nim'
 
         # Check if port is already in use
         port = self.PORT + len(self._nim_server_proc_dict)
