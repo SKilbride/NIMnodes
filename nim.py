@@ -20,12 +20,14 @@ class ModelType(Enum):
     FLUX_DEV = "FLUX_DEV"
     FLUX_CANNY = "FLUX_CANNY"
     FLUX_DEPTH = "FLUX_DEPTH"
+    FLUX_SCHNELL = "FLUX_SCHNELL"
 
 
 class OffloadingPolicy(Enum):
     NONE = "None"
     SYS = "System RAM"
     DISK = "Disk"
+    DEFAULT = "Default"
 
 class NIMManager:
     '''
@@ -38,9 +40,10 @@ class NIMManager:
 
     # Registry paths for different model types
     MODEL_REGISTRY: dict[ModelType, str] = {
-        ModelType.FLUX_DEV: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
-        ModelType.FLUX_CANNY: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
-        ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.0.0",
+        ModelType.FLUX_DEV: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_CANNY: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
+        ModelType.FLUX_SCHNELL: "nvcr.io/nim/black-forest-labs/flux.1-schnell:1.0.0",
     }
     PORT = 5000
 
@@ -189,6 +192,8 @@ class NIMManager:
             return "canny"
         elif model_name.value.endswith("DEPTH"):
             return "depth"
+        elif model_name.value.endswith("SCHNELL"):
+            return "base"
         else:
             return "base"
 
@@ -199,7 +204,8 @@ class NIMManager:
             return
 
         self._setup_directories(model_name)
-        cache_path = self.cache_path.format(model_name=model_name.value)
+        #cache_path = self.cache_path.format(model_name=model_name.value)
+        cache_path = '~/.cache/nim'
 
         # Check if port is already in use
         port = self.PORT + len(self._nim_server_proc_dict)
