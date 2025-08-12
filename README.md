@@ -106,9 +106,9 @@ Inputs:
 
 *is_nim_started*: This input takes the output from the **is_nim_started** output from the *Load NIM Node*.
 
-*width*: The image width. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+*width*: The image width. Valid ranges are [672, 704, 736, 768, 800, 832, 864, 896, 928, 960, 992, 1024, 1056, 1088 ,1120, 1152, 1184, 1216, 1248, 1280, 1312, 1344, 1376, 1408, 1440, 1472, 1504, 1536, 1568]
 
-*height*: The image height. Valid ranges are "768", "832", "896", "960", "1024", "1088", "1152", "1216", "1280", "1344"
+*height*: The image height. Valid ranges are [672, 704, 736, 768, 800, 832, 864, 896, 928, 960, 992, 1024, 1056, 1088 ,1120, 1152, 1184, 1216, 1248, 1280, 1312, 1344, 1376, 1408, 1440, 1472, 1504, 1536, 1568]
 
 *prompt*: The text description of the desired image output
 
