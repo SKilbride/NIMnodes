@@ -18,7 +18,7 @@ However it is recommended to installer from [here](https://assets.ngc.nvidia.com
 
 After the NIM setup has completed, please perform the following steps to start NIMs in Comfy UI:
 
-1. Install ComfyUI following [this](https://github.com/comfyanonymous/ComfyUI?tab=readme-ov-file#installing) note the special instructions for installing for NVIDIA 50-Series (Blackwell) and prepare the running enviorment for ComfyUI
+1. Install ComfyUI
 2. Open ComfyUI folder, clone this repo and put it under `...\ComfyUI\custom_nodes\`
 3. Go to `...\ComfyUI\custom_nodes\comfyui_nim\`and install dependency with `pip install -r requirements.txt`
 4. If using the windows standalone ComfyUI install use this command `..\..\..\python_embeded\python -m pip install -r requirements.txt`
