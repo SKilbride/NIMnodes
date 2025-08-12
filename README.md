@@ -20,7 +20,7 @@ After the NIM setup has completed, please perform the following steps to start N
 
 1. Install ComfyUI
 2. Open ComfyUI folder, clone this repo and put it under `...\ComfyUI\custom_nodes\`
-3. Go to `...\ComfyUI\custom_nodes\comfyui_nim\`and install dependency with `pip install -r requirements.txt`
+3. Go to `...\ComfyUI\custom_nodes\NIMNodes\`and install the dependencies with the following command: `pip install -r requirements.txt`
 4. If using the windows standalone ComfyUI install use this command `..\..\..\python_embeded\python -m pip install -r requirements.txt`
 5. A HuggingFace API token is required to access the Flux models. For information on how to create an access token see [here](https://huggingface.co/docs/hub/en/security-tokens)
 6. To avoid having to input your token into the NIM everytime you can set the HF_TOKEN environment variable.
