@@ -39,10 +39,12 @@ Repeat this step for the following FLUX model variants:
 | FLUX.1-Canny-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev) |
 | FLUX.1-Depth-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev) |
 | FLUX.1-schnell        | [https://huggingface.co/black-forest-labs/FLUX.1-schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell) |
+| FLUX.1-kontext-dev    | [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) |
 | FLUX.1-dev-onnx       | [https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-dev-onnx) |
 | FLUX.1-Canny-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev-onnx) |
 | FLUX.1-Depth-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx) |
 | FLUX.1-schnell        | [https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx](https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx) |
+| FLUX.1-kontext-dev-onnx    | [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx) |
 
 ## Start ComfyUI
 1. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
@@ -100,7 +102,7 @@ The **NIM FLUX NODE** allows the user to configure the options used by the FLUX 
 
 Inputs:
 
-*image*: When the FLUX Canny or FLUX Depth models are used, an image needs to be used to guide the image output. The Image input takes regular images as input and will be converted to *Depth* or *Canny* images within the NIM. 
+*image*: When the FLUX Canny, FLUX Depth or FLUX Kontext models are used, an image needs to be used to guide the image output. The Image input takes regular images as input. When using Depth or Canny the input image be converted to *Depth* or *Canny* images within the NIM. 
 
 *is_nim_started*: This input takes the output from the **is_nim_started** output from the *Load NIM Node*.
 
@@ -133,3 +135,7 @@ NONE
 Output:
 
 *hf_token*: Outputs the contents of the HF_TOKEN environment variable, will generate a failure if the environment variable does not exist.
+
+##FLUX.1 Kontext Dev
+The FLUX Kontext model has specific image generation ratio/resolutions which must be used. To make sure that the input image matches these ratio/resolutions the output of the input image should be passed into a FluxKontextImageScale node which will automatically scale the input image to a supported size, by feeding the output of this node into a GetImageSize node, we can use these values as inputs for the FLUX NIM Node Height and Width values to make sure they will work properly with FLUX Kontext.
+<img width="2907" height="1404" alt="image" src="https://github.com/user-attachments/assets/eb858d00-9491-4c2a-be41-4c33ee2a7b4e" />
