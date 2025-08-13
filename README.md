@@ -1,14 +1,14 @@
-# NVIDIA FLUX NIM
+# NVIDIA NIM Nodes
 
-### What is the FLUX NIM?
+### What are NIMs?
 
-The FLUX NIM is an NVIDIA Microservices container designed to run Black Forest Lab's FLUX models in the most optimal manner. This NIM provides support for the following models from Black Forest Lab's:  Flux.1 dev, Flux.1-Depth-dev, Flux.1-Canny-dev, and Flux.1-Schnell. 
+The NIMs is an NVIDIA Microservices container designed to run  models in the most optimal manner. This NIM provides support for the following models from Black Forest Lab's:  Flux.1 dev, Flux.1-Depth-dev, Flux.1-Canny-dev,Flux.1-Schnell, and Flux.1-Kontext-Dev. Experimental support is also provided for Stability AI SD3.5 Large, SD3.5 Large-controlnet-canny, and SD3.5 Large-controlnet-depth on GPUs with 32GB or larger.
 
 ## Getting Started with the FLUX NIM in ComfyUI
 
 Before installing, ensure your system meets the following requirements:  
 Operating System: Windows 11 (22H1 or later)  
-GPU: RTX 5090, RTX 5080, RTX 4090, RTX 4090 Laptop, RTX 4080, RTX 6000 Ada 
+GPU: RTX 5090, RTX 5090 Laptop, RTX 5080, RTX 4090, RTX 4090 Laptop, RTX 4080, RTX 6000 Ada 
 GPU Driver: Version 572.83 or later  
 Virtualization Settings: Enabled in SBIOS - [Instructions to enable virtualization if it is not enabled](https://support.microsoft.com/en-gb/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1)
 
@@ -138,4 +138,4 @@ Output:
 
 ##FLUX.1 Kontext Dev
 The FLUX Kontext model has specific image generation ratio/resolutions which must be used. To make sure that the input image matches these ratio/resolutions the output of the input image should be passed into a FluxKontextImageScale node which will automatically scale the input image to a supported size, by feeding the output of this node into a GetImageSize node, we can use these values as inputs for the FLUX NIM Node Height and Width values to make sure they will work properly with FLUX Kontext.
-<img width="2907" height="1404" alt="image" src="https://github.com/user-attachments/assets/eb858d00-9491-4c2a-be41-4c33ee2a7b4e" />
+![flux_kontext_dev nim workflow](assets/Flux.1_kontext_dev_NIM.png)
