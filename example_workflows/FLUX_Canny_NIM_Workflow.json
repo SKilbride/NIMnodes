@@ -1,9 +1,63 @@
 {
   "id": "b4e84106-0201-477e-aad3-76c583ad2881",
   "revision": 0,
-  "last_node_id": 12,
-  "last_link_id": 16,
+  "last_node_id": 11,
+  "last_link_id": 13,
   "nodes": [
+    {
+      "id": 6,
+      "type": "LoadNIMNode",
+      "pos": [
+        1060.9786376953125,
+        68.09461212158203
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "is_nim_installed",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "is_nim_installed"
+          },
+          "link": 7
+        },
+        {
+          "name": "hf_token",
+          "type": "STRING",
+          "widget": {
+            "name": "hf_token"
+          },
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "LoadNIMNode"
+      },
+      "widgets_values": [
+        "FLUX_CANNY",
+        "Start",
+        "System RAM",
+        "Input HF Token",
+        false
+      ]
+    },
     {
       "id": 8,
       "type": "Get_HFToken",
@@ -29,9 +83,9 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "Get_HFToken",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "Get_HFToken"
       },
       "widgets_values": []
     },
@@ -61,11 +115,66 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "InstallNIMNode",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "InstallNIMNode"
       },
       "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "NIMFLUXNode",
+      "pos": [
+        1445.7122802734375,
+        44.36128234863281
+      ],
+      "size": [
+        400,
+        256
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 13
+        },
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "widget": {
+            "name": "is_nim_started"
+          },
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "NIMFLUXNode"
+      },
+      "widgets_values": [
+        "",
+        "1024",
+        "1024",
+        "handdrawn cartoon fairy in a forest",
+        5,
+        2631249928,
+        "randomize",
+        30
+      ]
     },
     {
       "id": 1,
@@ -85,7 +194,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 16
+          "link": 11
         }
       ],
       "outputs": [],
@@ -95,6 +204,46 @@
       },
       "widgets_values": [
         "ComfyUI"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        1063.6455078125,
+        280.5613098144531
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            13
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image",
+        ""
       ]
     },
     {
@@ -109,7 +258,7 @@
         154.66668701171875
       ],
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -120,144 +269,6 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
-    },
-    {
-      "id": 10,
-      "type": "LoadImage",
-      "pos": [
-        1063.6455078125,
-        280.5613098144531
-      ],
-      "size": [
-        315,
-        314
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            14
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.3.27"
-      },
-      "widgets_values": [
-        "example.png",
-        "image"
-      ]
-    },
-    {
-      "id": 6,
-      "type": "LoadNIMNode",
-      "pos": [
-        1060.9786376953125,
-        68.09461212158203
-      ],
-      "size": [
-        315,
-        154
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_installed",
-          "type": "BOOLEAN",
-          "link": 7
-        },
-        {
-          "name": "hf_token",
-          "type": "STRING",
-          "widget": {
-            "name": "hf_token"
-          },
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "links": [
-            15
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadNIMNode",
-        "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
-      },
-      "widgets_values": [
-        "FLUX_CANNY",
-        "Start",
-        "System RAM",
-        "Input HF Token"
-      ]
-    },
-    {
-      "id": 12,
-      "type": "NIMGenerateNode",
-      "pos": [
-        1451.095947265625,
-        52.58685302734375
-      ],
-      "size": [
-        400,
-        252
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "link": 15
-        },
-        {
-          "name": "image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 14
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            16
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "NIMGenerateNode"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        "a handdrawn cartoon fairy in a forest",
-        5,
-        0,
-        "randomize",
-        25
-      ]
     }
   ],
   "links": [
@@ -270,6 +281,22 @@
       "BOOLEAN"
     ],
     [
+      9,
+      6,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      11,
+      7,
+      0,
+      1,
+      0,
+      "IMAGE"
+    ],
+    [
       12,
       8,
       0,
@@ -278,26 +305,10 @@
       "STRING"
     ],
     [
-      14,
+      13,
       10,
       0,
-      12,
-      1,
-      "IMAGE"
-    ],
-    [
-      15,
-      6,
-      0,
-      12,
-      0,
-      "STRING"
-    ],
-    [
-      16,
-      12,
-      0,
-      1,
+      7,
       0,
       "IMAGE"
     ]
@@ -311,8 +322,7 @@
         -279.4116436199,
         277.84152591147154
       ]
-    },
-    "frontendVersion": "1.23.4"
+    }
   },
   "version": 0.4
 }

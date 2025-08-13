@@ -15,7 +15,7 @@ from .nim import ModelType, NIMManager, OffloadingPolicy
 
 manager = NIMManager()
 
-class NIMGenerateNode:
+class NIMFLUXNode:
     def __init__(self):
         pass
 
@@ -280,13 +280,13 @@ class Get_HFToken:
 NODE_CLASS_MAPPINGS = {
     "LoadNIMNode": LoadNIMNode,
     "InstallNIMNode": InstallNIMNode,
-    "NIMGenerateNode": NIMGenerateNode,
+    "NIMFLUXNode": NIMFLUXNode,
     "Get_HFToken": Get_HFToken
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "LoadNIMNode": "Load NIM",
     "InstallNIMNode": "Install NIM",
-    "NIMGenerateNode": "NIM Generate",
+    "NIMFLUXNode": "NIM Generate",
     "Get_HFToken": "Use HF_TOKEN EnVar"
 }

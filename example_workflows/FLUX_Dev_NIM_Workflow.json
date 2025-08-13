@@ -1,8 +1,8 @@
 {
   "id": "b4e84106-0201-477e-aad3-76c583ad2881",
   "revision": 0,
-  "last_node_id": 11,
-  "last_link_id": 14,
+  "last_node_id": 10,
+  "last_link_id": 12,
   "nodes": [
     {
       "id": 4,
@@ -30,11 +30,65 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "InstallNIMNode",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "InstallNIMNode"
       },
       "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "LoadNIMNode",
+      "pos": [
+        1060.9786376953125,
+        68.09461212158203
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "is_nim_installed",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "is_nim_installed"
+          },
+          "link": 7
+        },
+        {
+          "name": "hf_token",
+          "type": "STRING",
+          "widget": {
+            "name": "hf_token"
+          },
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "LoadNIMNode"
+      },
+      "widgets_values": [
+        "FLUX_DEV",
+        "Start",
+        "System RAM",
+        "Input HF Token",
+        false
+      ]
     },
     {
       "id": 8,
@@ -61,11 +115,96 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "Get_HFToken",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "Get_HFToken"
       },
       "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "NIMFLUXNode",
+      "pos": [
+        1412.37890625,
+        53.02793884277344
+      ],
+      "size": [
+        400,
+        256
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "widget": {
+            "name": "is_nim_started"
+          },
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "NIMFLUXNode"
+      },
+      "widgets_values": [
+        "",
+        "1024",
+        "1024",
+        "beautiful scenery nature glass bottle landscape, purple galaxy bottle",
+        5,
+        3552309088,
+        "randomize",
+        30
+      ]
+    },
+    {
+      "id": 1,
+      "type": "SaveImage",
+      "pos": [
+        1871.58447265625,
+        51.71392822265625
+      ],
+      "size": [
+        315,
+        270
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
     },
     {
       "id": 10,
@@ -90,135 +229,6 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
-    },
-    {
-      "id": 6,
-      "type": "LoadNIMNode",
-      "pos": [
-        1060.9786376953125,
-        68.09461212158203
-      ],
-      "size": [
-        315,
-        154
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_installed",
-          "type": "BOOLEAN",
-          "link": 7
-        },
-        {
-          "name": "hf_token",
-          "type": "STRING",
-          "widget": {
-            "name": "hf_token"
-          },
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "links": [
-            13
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadNIMNode",
-        "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
-      },
-      "widgets_values": [
-        "FLUX_DEV",
-        "Start",
-        "System RAM",
-        "Input HF Token"
-      ]
-    },
-    {
-      "id": 1,
-      "type": "SaveImage",
-      "pos": [
-        1927.9224853515625,
-        50.774932861328125
-      ],
-      "size": [
-        315,
-        270
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 14
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.27"
-      },
-      "widgets_values": [
-        "ComfyUI"
-      ]
-    },
-    {
-      "id": 11,
-      "type": "NIMGenerateNode",
-      "pos": [
-        1437.950439453125,
-        63.854522705078125
-      ],
-      "size": [
-        400,
-        252
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "link": 13
-        },
-        {
-          "name": "image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            14
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "NIMGenerateNode"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        "beautiful scenery nature glass bottle landscape, purple galaxy bottle",
-        5,
-        0,
-        "randomize",
-        25
-      ]
     }
   ],
   "links": [
@@ -231,28 +241,28 @@
       "BOOLEAN"
     ],
     [
+      9,
+      6,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      11,
+      7,
+      0,
+      1,
+      0,
+      "IMAGE"
+    ],
+    [
       12,
       8,
       0,
       6,
       1,
       "STRING"
-    ],
-    [
-      13,
-      6,
-      0,
-      11,
-      0,
-      "STRING"
-    ],
-    [
-      14,
-      11,
-      0,
-      1,
-      0,
-      "IMAGE"
     ]
   ],
   "groups": [],
@@ -264,8 +274,7 @@
         -279.4116436199,
         277.84152591147154
       ]
-    },
-    "frontendVersion": "1.23.4"
+    }
   },
   "version": 0.4
 }

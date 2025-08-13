@@ -1,8 +1,8 @@
 {
   "id": "b4e84106-0201-477e-aad3-76c583ad2881",
   "revision": 0,
-  "last_node_id": 10,
-  "last_link_id": 15,
+  "last_node_id": 9,
+  "last_link_id": 12,
   "nodes": [
     {
       "id": 4,
@@ -30,11 +30,120 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "InstallNIMNode",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "InstallNIMNode"
       },
       "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "LoadNIMNode",
+      "pos": [
+        1060.9786376953125,
+        68.09461212158203
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "is_nim_installed",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "is_nim_installed"
+          },
+          "link": 7
+        },
+        {
+          "name": "hf_token",
+          "type": "STRING",
+          "widget": {
+            "name": "hf_token"
+          },
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "LoadNIMNode"
+      },
+      "widgets_values": [
+        "FLUX_DEPTH",
+        "Start",
+        "System RAM",
+        "Input HF Token",
+        false
+      ]
+    },
+    {
+      "id": 7,
+      "type": "NIMFLUXNode",
+      "pos": [
+        1567.7122802734375,
+        49.02793884277344
+      ],
+      "size": [
+        400,
+        256
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 10
+        },
+        {
+          "name": "is_nim_started",
+          "type": "STRING",
+          "widget": {
+            "name": "is_nim_started"
+          },
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "comfyui_nim",
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "NIMFLUXNode"
+      },
+      "widgets_values": [
+        "",
+        "1024",
+        "1024",
+        "a handdrawn cartoon fairy in a forest",
+        5,
+        438338295,
+        "randomize",
+        30
+      ]
     },
     {
       "id": 1,
@@ -54,7 +163,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 15
+          "link": 11
         }
       ],
       "outputs": [],
@@ -91,35 +200,11 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "Get_HFToken",
         "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
+        "ver": "5048deba71359baf23904966b5436dfe42b0ae97",
+        "Node name for S&R": "Get_HFToken"
       },
       "widgets_values": []
-    },
-    {
-      "id": 9,
-      "type": "MarkdownNote",
-      "pos": [
-        613.41162109375,
-        385.49176025390625
-      ],
-      "size": [
-        377.3333740234375,
-        154.66668701171875
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "LICENSE AGREEMENT",
-      "properties": {},
-      "widgets_values": [
-        "***LICENSE AGREEMENT***\n\nBy clicking Run button, you agree to the terms governing the NIMs you have chosen: [https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md](https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md)"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
     },
     {
       "id": 2,
@@ -133,7 +218,7 @@
         314
       ],
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -142,7 +227,7 @@
           "type": "IMAGE",
           "slot_index": 0,
           "links": [
-            13
+            10
           ]
         },
         {
@@ -152,113 +237,39 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
-        "ver": "0.3.27"
+        "ver": "0.3.27",
+        "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
         "example.png",
-        "image"
+        "image",
+        ""
       ]
     },
     {
-      "id": 6,
-      "type": "LoadNIMNode",
+      "id": 9,
+      "type": "MarkdownNote",
       "pos": [
-        1060.9786376953125,
-        68.09461212158203
+        613.41162109375,
+        385.49176025390625
       ],
       "size": [
-        315,
-        154
+        377.3333740234375,
+        154.66668701171875
       ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_installed",
-          "type": "BOOLEAN",
-          "link": 7
-        },
-        {
-          "name": "hf_token",
-          "type": "STRING",
-          "widget": {
-            "name": "hf_token"
-          },
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "links": [
-            14
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadNIMNode",
-        "aux_id": "comfyui_nim",
-        "ver": "5048deba71359baf23904966b5436dfe42b0ae97"
-      },
+      "inputs": [],
+      "outputs": [],
+      "title": "LICENSE AGREEMENT",
+      "properties": {},
       "widgets_values": [
-        "FLUX_DEPTH",
-        "Start",
-        "System RAM",
-        "Input HF Token"
-      ]
-    },
-    {
-      "id": 10,
-      "type": "NIMGenerateNode",
-      "pos": [
-        1473.6312255859375,
-        74.18310546875
+        "***LICENSE AGREEMENT***\n\nBy clicking Run button, you agree to the terms governing the NIMs you have chosen: [https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md](https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md)"
       ],
-      "size": [
-        400,
-        252
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "is_nim_started",
-          "type": "STRING",
-          "link": 14
-        },
-        {
-          "name": "image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 13
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            15
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "NIMGenerateNode"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        "a handdrawn cartoon fairy in a forest",
-        5,
-        0,
-        "randomize",
-        25
-      ]
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -271,36 +282,36 @@
       "BOOLEAN"
     ],
     [
+      9,
+      6,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      10,
+      2,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      7,
+      0,
+      1,
+      0,
+      "IMAGE"
+    ],
+    [
       12,
       8,
       0,
       6,
       1,
       "STRING"
-    ],
-    [
-      13,
-      2,
-      0,
-      10,
-      1,
-      "IMAGE"
-    ],
-    [
-      14,
-      6,
-      0,
-      10,
-      0,
-      "STRING"
-    ],
-    [
-      15,
-      10,
-      0,
-      1,
-      0,
-      "IMAGE"
     ]
   ],
   "groups": [],
@@ -312,8 +323,7 @@
         -279.4116436199,
         277.84152591147154
       ]
-    },
-    "frontendVersion": "1.23.4"
+    }
   },
   "version": 0.4
 }
