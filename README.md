@@ -136,6 +136,6 @@ Output:
 
 *hf_token*: Outputs the contents of the HF_TOKEN environment variable, will generate a failure if the environment variable does not exist.
 
-##FLUX.1 Kontext Dev
+## FLUX.1 Kontext Dev
 The FLUX Kontext model has specific image generation ratio/resolutions which must be used. To make sure that the input image matches these ratio/resolutions the output of the input image should be passed into a FluxKontextImageScale node which will automatically scale the input image to a supported size, by feeding the output of this node into a GetImageSize node, we can use these values as inputs for the FLUX NIM Node Height and Width values to make sure they will work properly with FLUX Kontext.
 ![flux_kontext_dev nim workflow](assets/Flux.1_kontext_dev_NIM.png)
