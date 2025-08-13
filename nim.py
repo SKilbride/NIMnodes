@@ -22,6 +22,10 @@ class ModelType(Enum):
     FLUX_DEPTH = "FLUX_DEPTH"
     FLUX_SCHNELL = "FLUX_SCHNELL"
     FLUX_KONTEXT = "FLUX_KONTEXT"
+    SD35L_BASE = "SD35L_BASE"
+    SD35L_CANNY = "SD35L_CANNY"
+    SD35L_DEPTH = "SD35L_DEPTH"
+
 
 class OffloadingPolicy(Enum):
     NONE = "None"
@@ -45,6 +49,9 @@ class NIMManager:
         ModelType.FLUX_DEPTH: "nvcr.io/nim/black-forest-labs/flux.1-dev:1.1.0",
         ModelType.FLUX_SCHNELL: "nvcr.io/nim/black-forest-labs/flux.1-schnell:1.0.0",
         ModelType.FLUX_KONTEXT: "nvcr.io/nim/black-forest-labs/flux.1-kontext-dev:1.0.0",
+        ModelType.SD35L_BASE: "nvcr.io/nim/stabilityai/stable-diffusion-3.5-large:1.0.0",
+        ModelType.SD35L_CANNY: "nvcr.io/nim/stabilityai/stable-diffusion-3.5-large:1.0.0",
+        ModelType.SD35L_DEPTH: "nvcr.io/nim/stabilityai/stable-diffusion-3.5-large:1.0.0",
     }
     PORT = 5000
 
@@ -231,6 +238,8 @@ class NIMManager:
         elif model_name.value.endswith("SCHNELL"):
             return "base"
         elif model_name.value.endswith("KONTEXT"):
+            return "base"
+        elif model_name.value.endswith("BASE"):
             return "base"
         else:
             return "base"

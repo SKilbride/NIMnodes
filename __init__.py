@@ -15,7 +15,7 @@ from .nim import ModelType, NIMManager, OffloadingPolicy
 
 manager = NIMManager()
 
-class NIMFLUXNode:
+class NIMGenerateNode:
     def __init__(self):
         pass
 
@@ -117,7 +117,7 @@ class NIMFLUXNode:
         
         print(f'Payload is: payload {payload}')
         
-        if model_name.value.split('_')[-1].lower() not in ['schnell', 'dev']:
+        if model_name.value.split('_')[-1].lower() not in ['schnell', 'dev', 'base']:
             if image is None:
                 raise Exception("Please use load image node to select image input for FLUX depth, canny and kontext modes.")
         
@@ -280,13 +280,13 @@ class Get_HFToken:
 NODE_CLASS_MAPPINGS = {
     "LoadNIMNode": LoadNIMNode,
     "InstallNIMNode": InstallNIMNode,
-    "NIMFLUXNode": NIMFLUXNode,
+    "NIMGenerateNode": NIMGenerateNode,
     "Get_HFToken": Get_HFToken
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "LoadNIMNode": "Load NIM",
     "InstallNIMNode": "Install NIM",
-    "NIMFLUXNode": "NIM FLUX",
+    "NIMGenerateNode": "NIM Generate",
     "Get_HFToken": "Use HF_TOKEN EnVar"
 }
