@@ -34,7 +34,7 @@ Navigate to: [https://huggingface.co/black-forest-labs/FLUX.1-dev](https://huggi
 ![image](https://github.com/user-attachments/assets/73206800-87cc-4bdf-a4bd-c0dde8730161)
 Accept the license agreement.
 
-Repeat this step for the following FLUX model variants:
+Repeat this step for the following model variants you wish to utilize:
 | Model      |URL |
 | ----------- | ----------- |
 | FLUX.1-Canny-dev      | [https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev](https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev) |
@@ -46,6 +46,8 @@ Repeat this step for the following FLUX model variants:
 | FLUX.1-Depth-dev-onnx | [https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev-onnx) |
 | FLUX.1-schnell        | [https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx](https://huggingface.co/black-forest-labs/FLUX.1-schnell-onnx) |
 | FLUX.1-kontext-dev-onnx    | [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx) |
+| FLUX.1-kontext-dev-onnx    | [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev-onnx) |
+| SD 3.5 Large    | [https://huggingface.co/stabilityai/stable-diffusion-3.5-large](https://huggingface.co/stabilityai/stable-diffusion-3.5-large) |
 
 ## Start ComfyUI
 1. Run ComfyUI APP with `python main.py` under `...\ComfyUI\`
