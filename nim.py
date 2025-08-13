@@ -82,6 +82,34 @@ class NIMManager:
                 return True
         return False
 
+    def check_folder_in_wsl(self, folder_path):
+        """
+        Checks if a folder exists in a specified WSL distribution.
+
+        Args:
+            distro_name (str): The name of the WSL distribution.
+            folder_path (str): The absolute path to the folder within the distro.
+
+        Returns:
+            bool: True if the folder exists, False otherwise.
+        """
+        try:
+            # The 'test -d' command returns a 0 exit code for success (folder exists)
+            # and a non-zero exit code for failure (folder doesn't exist).
+            result = subprocess.run(
+                ["wsl.exe", "-d", "NVIDIA-Workbench", "test", "-d", folder_path],
+                check=True,  # This will raise an exception if the command fails
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            return True
+        except subprocess.CalledProcessError:
+            # A non-zero return code means the folder doesn't exist.
+            return False
+        except FileNotFoundError:
+            print("Error: wsl.exe not found. Please ensure it's in your system PATH.")
+            return False
 
     def _get_cache_path(self, wsl_path=True) -> str:
         home = Path.home()
@@ -129,7 +157,12 @@ class NIMManager:
         """Create necessary directories for NIM cache"""
         cache_path = self.cache_path.format(model_name=model_name.value)
 
-        native_path = self._get_cache_path(wsl_path=False).format(model_name=model_name.value)    
+        native_path = self._get_cache_path(wsl_path=False).format(model_name=model_name.value)
+
+        if not self.check_folder_in_wsl('~/.cache/nim'):
+            self._run_cmd('mkdir -p ~/.cache/nim')
+            self._run_cmd('chmod 777 -R ~/.cache/nim')
+
         if os.path.exists(native_path):
             return
         os.makedirs(native_path, exist_ok=True)    
